@@ -361,3 +361,14 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# MAUI / Mobile
+*.keystore
+*.jks
+
+# Local env files
+.env
+.env.*
+
+# Rider
+.idea/
