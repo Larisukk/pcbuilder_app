@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:16
+    container_name: pcbd_db
+    environment:
+      POSTGRES_USER: pcbd
+      POSTGRES_PASSWORD: pcbd
+      POSTGRES_DB: pcbd
+    ports:
+      - "5432:5432"
+    volumes:
+      - pcbd_pgdata:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ../backend/Pcbuilder.Api
+      dockerfile: Dockerfile
+    container_name: pcbd_api
+    environment:
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__Default: Host=db;Port=5432;Database=pcbd;Username=pcbd;Password=pcbd
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  pcbd_pgdata:
