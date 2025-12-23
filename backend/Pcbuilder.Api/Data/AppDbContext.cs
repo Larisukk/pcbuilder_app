@@ -240,6 +240,13 @@ public class AppDbContext : DbContext
             .HasForeignKey(w => w.BuildId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        // Build -> CreatedBy (User)
+        modelBuilder.Entity<Build>()
+            .HasOne(b => b.CreatedBy)
+            .WithMany()
+            .HasForeignKey(b => b.CreatedById)
+            .OnDelete(DeleteBehavior.SetNull);
+
         // Build requests + recommendations
         modelBuilder.Entity<BuildRequest>()
             .HasOne(r => r.User)
