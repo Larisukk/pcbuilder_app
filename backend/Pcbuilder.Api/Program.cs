@@ -1,8 +1,23 @@
+using Microsoft.EntityFrameworkCore;
+using Pcbuilder.Api.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("Default"),
+        npgsqlOptions =>
+        {
+            // Put migrations in your API assembly (default, but explicit)
+            npgsqlOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName);
+        }
+    )
+    .EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
+);
 
 var app = builder.Build();
 
