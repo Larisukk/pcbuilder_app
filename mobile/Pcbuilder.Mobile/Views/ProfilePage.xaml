@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pcbuilder.Mobile.ViewModels"
+             x:Class="Pcbuilder.Mobile.Views.ProfilePage"
+             Title="Profile">
+    
+    <VerticalStackLayout Spacing="20" Padding="30" VerticalOptions="Center">
+        
+        <Label Text="My Profile" 
+               FontSize="32" 
+               HorizontalOptions="Center" 
+               FontAttributes="Bold" />
+
+        <!-- Login Section -->
+        <VerticalStackLayout IsVisible="{Binding IsLoggedOut}" Spacing="10">
+            <Label Text="Please log in to access your profile and saved builds." 
+                   HorizontalOptions="Center" 
+                   HorizontalTextAlignment="Center"/>
+            <Button Text="Log In" 
+                    Command="{Binding LoginCommand}" 
+                    HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+        <!-- Logged In Section -->
+        <VerticalStackLayout IsVisible="{Binding IsLoggedIn}" Spacing="10">
+            <Label Text="Welcome back!" 
+                   FontSize="18"
+                   HorizontalOptions="Center" />
+            
+            <Button Text="Saved Builds" 
+                    Command="{Binding ViewSavedBuildsCommand}" 
+                    BackgroundColor="{StaticResource Primary}" 
+                    TextColor="White"
+                    HeightRequest="60"
+                    WidthRequest="200"
+                    HorizontalOptions="Center" />
+            
+            <Button Text="Log Out" 
+                    Command="{Binding LogoutCommand}" 
+                    BackgroundColor="Gray"
+                    HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

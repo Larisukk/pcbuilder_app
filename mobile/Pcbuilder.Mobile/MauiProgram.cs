@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using Pcbuilder.Mobile.Services;
+using Pcbuilder.Mobile.ViewModels;
+using Pcbuilder.Mobile.Views;
 
 namespace Pcbuilder.Mobile;
 
@@ -18,6 +21,10 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+
+        builder.Services.AddSingleton<IAuthService, AuthService>();
+        builder.Services.AddTransient<ProfileViewModel>();
+        builder.Services.AddTransient<ProfilePage>();
 
 		return builder.Build();
 	}
